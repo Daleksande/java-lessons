@@ -1,6 +1,9 @@
 package com.company.present;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -9,105 +12,126 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Candy[] candy = {new Drops("drops", "Chupa-Chups", 10, 25, "round"),
-                new Chocolate("chokolate", "chokolate", 0.76, 1.05, "white"),
-                new Gum("gum", "gum", 1.5, 2.6, "qw")
+        Candy[] candys = {new Drops("drops", "Chupa-Chups", 10, 25, "round"),
+                new Chocolate("chokolate", "Chokolatko", 26, 1.05, "white"),
+                new Gum("gum", "Bubbaluya", 1.5, 2.6, "cherry")
         };
 
         Map<String, Integer> present = new HashMap<>();
 
-        System.out.println("Начинаем формированеи подарка.");
-        System.out.println("Выберите один из типов сладости (введите номер с клавиатуры): ");
-        for (int i = 0; i < candy.length; i++) {
-            System.out.println(i + 1 + " - " + candy[i].getName());
+        double sumWeight = 0.0;
+        double sumPrice = 0.0;
+        int countAll = 0;
+
+        System.out.println("Выберите номер сладости из списка:");
+        for (int i = 0; i < candys.length; i++) {
+            System.out.println(i + 1 + " - " + candys[i].getName());
         }
-        System.out.println();
 
         Scanner in = new Scanner(System.in);
 
         Boolean flag = true;
 
-        while (flag == true) {
-            System.out.println("Выберите следующий тип сладостей в ваш подарок: ");
-            String a = in.next();
-            System.out.println("Укажите количество конфет выбранного типа: ");
-            int b = Integer.parseInt(in.next());
+        try {
+
+            while (flag == true) {
+                System.out.println("Выберите номер сладости из списка:");
+                String a = in.next();
+                System.out.println("Укажите количество конфет выбранного типа:");
+                int b = Integer.parseInt(in.next());
 
 
-            present.put(a, b);
-            System.out.println("Продолжить формирование подарка? Y/N");
-            while(true) {
-                String c = in.next();
-                if (c.equals("Y") || c.equals("y")) {
-                    break;
-                }
-                if (c.equals("N") || c.equals("n3")) {
-                    flag = false;
-                    break;
-                }
-                if (!c.equals("Y") || !c.equals("N")) {
-                    System.out.println("Нужно ввести Y для продолжения формирования подарка, либо N для завершения работы.");
-                    continue;
+                present.put(candys[Integer.parseInt(a) - 1].getName(), b);
+
+//                if(!present.isEmpty() && String.valueOf(present.get(candys[Integer.parseInt(a) - 1].getName())) != null) {
+//                    int n = present.get(candys[Integer.parseInt(a) - 1].getName()) + b;
+//                    present.put(candys[Integer.parseInt(a) - 1].getName(), n);
+//                } else {
+//                    present.put(candys[Integer.parseInt(a) - 1].getName(), b);
+//                }
+
+                System.out.println("Продолжить формирование подарка? Y/N");
+                while (true) {
+                    String c = in.next();
+                    if (c.equals("Y") || c.equals("y")) {
+                        break;
+                    }
+                    if (c.equals("N") || c.equals("n")) {
+                        flag = false;
+                        break;
+                    }
+                    if (!c.equals("Y") || !c.equals("N")) {
+                        System.out.println("Нужно ввести Y для продолжения формирования подарка, либо N для завершения работы.");
+                        continue;
+                    }
                 }
             }
+
+            System.out.println("\nСостав подарка:");
+            for (Map.Entry item : present.entrySet()) {
+                System.out.println("Конфета - " + item.getKey() + ", Количество - " + item.getValue());
+                int countV = Integer.parseInt(item.getValue().toString());
+                String name = item.getKey().toString();
+
+                for (int i = 0; i < candys.length; i++) {
+                    String result = "";
+                    result = result + candys[i].getName();
+                    if (result.equals(name)) {
+                        sumWeight += countV * candys[i].getWieght();
+                        sumPrice += countV* candys[i].getPrice();
+                    }
+                }
+
+                countAll += Integer.parseInt(item.getValue().toString());
+            }
+
+            double sum = new BigDecimal(sumPrice).setScale(2, RoundingMode.UP).doubleValue();
+
+            System.out.println("Всего конфет: " + countAll);
+            System.out.println("Вес подарка: " + sumWeight);
+            System.out.println("Цена подарка: " + sum);
+
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            System.out.println("\nВведено значение сладости, которой нет в списке!\n" + ex + "\n");
+            System.out.println("Формирование подарка прекращено.");
         }
 
+        //удаление
+        while (sumWeight > 50) {
+            System.out.println("\nВес подарка превышает 50. Надо что-то удалить. Введите название конфеты для удаления.");
 
-//        for (Map.Entry item : present.entrySet()) {
-//            System.out.println("Key - " + item.getKey() + ", Value - " + item.getValue());
-//        }
+            String d = in.next();
 
+            present.remove(d);
 
+           sumWeight = 0;
+           sumPrice = 0;
+           countAll = 0;
 
-//        present.put("ChupaChups", 1);
-//
-//        System.out.println(present.get(0));
+            System.out.println("\nСостав подарка:");
+            for (Map.Entry item : present.entrySet()) {
+                System.out.println("Конфета - " + item.getKey() + ", Количество - " + item.getValue());
+                int countV = Integer.parseInt(item.getValue().toString());
+                String name = item.getKey().toString();
 
-//        ArrayList<Any> drops = new ArrayList<Any>();
-//
-//
-////        drops.add();
-//
-//        Chocolate twx = new Chocolate("Twix", 125, 50, "white");
-//        Chocolate mrs = new Chocolate("Mars", 200, 70, "black");
-//        Drops chp = new Drops("Chupa-Chups", 10, 25, "red");
-//        Gum orb = new Gum("Orbit", 5, 25, "mentol");
-//
-//        String[] a = new String[3];
-//        Scanner in = new Scanner(System.in);
-//
-//        System.out.println(a[1]);
+                for (int i = 0; i < candys.length; i++) {
+                    String result = "";
+                    result = result + candys[i].getName();
+                    if (result.equals(name)) {
+                        sumWeight += countV * candys[i].getWieght();
+                        sumPrice += countV* candys[i].getPrice();
+                    }
+                }
 
-//        for (int i = 0; i < a.length; i++) {
-//            System.out.print("Введите " + (i + 1) + "-й элемент массива: ");
-//            a[i] = in.next();
-//            System.out.println(a[i] + " - ");
-//        }
+                countAll += Integer.parseInt(item.getValue().toString());
+            }
 
-//        {
-//
-//            System.out.print("Введите " + (i + 1) + "-й элемент массива: ");
-//            a[i] = in.nextInt();
-//
-//            System.out.println(a[i] + " - ");
-//
-//            i++;
-//        }
+            double sum = new BigDecimal(sumPrice).setScale(2, RoundingMode.UP).doubleValue();
 
-//        System.out.println(Arrays.toString(a));
-
-
-
-//        double presentPrice = twx.getPrice() + mrs.getPrice() + chp.getPrice() + orb.getPrice();
-//        double presentWeight = twx.getWieght() + mrs.getWieght() + chp.getWieght() + orb.getWieght();
-
-//        System.out.println("Подарок весом "
-//                + presentWeight
-//                + " и стоимостью "
-//                + presentPrice
-//                + " состоит из "
-//                + twx.getName() + ", " + mrs.getName() + ", " + chp.getName() + ", " + orb.getName()
-//        );
+            System.out.println("Всего конфет: " + countAll);
+            System.out.println("Вес подарка: " + sumWeight);
+            System.out.println("Цена подарка: " + sum);
+        }
 
     }
 
