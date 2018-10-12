@@ -11,8 +11,8 @@ class Gum extends Candy {
         this.taste = taste;
     }
 
-    public Gum(String type, String name, double wieght, double price, String taste) {
-        super(type, name, wieght, price);
+    public Gum(String name, double wieght, double price, String taste) {
+        super(name, wieght, price);
         this.taste = taste;
     }
 }

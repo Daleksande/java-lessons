@@ -11,8 +11,8 @@ class Drops extends Candy {
         this.form = form;
     }
 
-    public Drops(String type, String name, double wieght, double price, String form) {
-        super(type, name, wieght, price);
+    public Drops(String name, double wieght, double price, String form) {
+        super(name, wieght, price);
         this.form = form;
     }
 }

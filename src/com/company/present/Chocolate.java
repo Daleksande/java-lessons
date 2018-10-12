@@ -11,8 +11,8 @@ class Chocolate extends Candy {
         this.color = color;
     }
 
-    public Chocolate(String type, String name, double wieght, double price, String color) {
-        super(type, name, wieght, price);
+    public Chocolate(String name, double wieght, double price, String color) {
+        super(name, wieght, price);
         this.color = color;
     }
 }
