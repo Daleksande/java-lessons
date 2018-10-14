@@ -19,5 +19,7 @@ public class Main {
             + " состоит из "
             + twx.getName() + ", " + mrs.getName() + ", " + chp.getName() + ", " + orb.getName()
         );
+
+
     }
 }
