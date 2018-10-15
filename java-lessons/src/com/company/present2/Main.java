@@ -44,19 +44,25 @@ public class Main {
         System.out.println("Состав подарка:");
 
         for (int i = 0; i < present.size(); i++) {
-            String sweetName = present.get(i).getName();
-            System.out.println(sweetName);
+            int sweetCount = present.get(i).getCount();
 
-            int sweetCount = Integer.parseInt(String.valueOf(present.get(i).getCount()));
+            if (sweetCount > 0) {
+                String sweetName = present.get(i).getName();
+                System.out.println(sweetName);
 
-            double sweetWeight = Double.parseDouble(String.valueOf(present.get(i).getWieght()));
-            presentWeight = presentWeight + sweetWeight * sweetCount;
+                double sweetWeight = Double.parseDouble(String.valueOf(present.get(i).getWieght()));
+                presentWeight = presentWeight + sweetWeight * sweetCount;
 
-            double sweetCost = Double.parseDouble(String.valueOf(present.get(i).getPrice()));
-            presentCost = presentCost + sweetCost * sweetCount;
+                double sweetCost = Double.parseDouble(String.valueOf(present.get(i).getPrice()));
+                presentCost = presentCost + sweetCost * sweetCount;
+            }
         }
 
-        System.out.println("Общий вес подарка:" + presentWeight);
-        System.out.println("Общая стоимость подарка:" + presentCost);
+        if (presentWeight > 0) {
+            System.out.println("Общий вес подарка:" + presentWeight);
+            System.out.println("Общая стоимость подарка:" + presentCost);
+        } else {
+            System.out.println("Подарок пуст :(");
+        }
     }
 }
