@@ -2,6 +2,7 @@ package com.company.present2;
 
 public class Choco extends Sweet {
 
+    @UnField
     private String color;
 
     public String getColor() {

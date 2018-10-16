@@ -1,6 +1,8 @@
 package com.company.present2;
 
 public class Gum extends Sweet {
+
+    @UnField
     private String flavor;
 
     public String getFlavor() {

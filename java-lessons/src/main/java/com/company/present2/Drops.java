@@ -1,6 +1,8 @@
 package com.company.present2;
 
 public class Drops extends Sweet {
+
+    @UnField
     private String form;
 
     public String getForm() {

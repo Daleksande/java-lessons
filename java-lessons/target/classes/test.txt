@@ -1,0 +1,8 @@
+name: Anton
+age: 25
+city: Moscow
+region: 77
+name: Sasha
+age: 27
+city: Spb
+region: 97
